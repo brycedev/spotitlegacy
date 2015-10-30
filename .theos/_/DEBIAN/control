@@ -1,0 +1,10 @@
+Package: com.thebryc3isright.spot
+Name: Spot
+Depends: mobilesubstrate
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: Bryce Jackson
+Author: Bryce Jackson
+Section: Tweaks
+Version: 0.0.1-82+debug
+Installed-Size: 144
