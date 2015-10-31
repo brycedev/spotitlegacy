@@ -1,3 +1,3 @@
 # spotit
 
-the latest reddit posts in your left spotlight
+the latest reddit posts in your spotlight

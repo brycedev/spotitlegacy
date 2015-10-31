@@ -1,4 +1,4 @@
-.theos/obj/debug/armv7/SpotitTableViewController.m.38d36a01.md .theos/obj/debug/armv7/SpotitTableViewController.m.38d36a01.o: \
+.theos/obj/debug/arm64/SpotitTableViewController.m.892555be.md .theos/obj/debug/arm64/SpotitTableViewController.m.892555be.o: \
   SpotitTableViewController.m /opt/theos/Prefix.pch \
   /opt/theos/include/_Prefix/NullabilityCompat.h \
   /opt/theos/include/_Prefix/IOSWebKitCompatHacks.h \
