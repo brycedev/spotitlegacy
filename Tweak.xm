@@ -1,39 +1,51 @@
-#import "Interfaces.h"
 #import "SpotitObject.h"
 #import "SpotitTableViewController.h"
+#import "BDSettingsManager.h"
 
 SpotitTableViewController *vc;
 UITableView *tv;
-BOOL hideSearch = YES;
-BOOL removeBlur = YES;
-NSMutableArray *objs;
-BOOL firstInitialization = YES;
+
+void fetchFeed() {
+    NSMutableArray *objs = [[NSMutableArray alloc] init];
+    NSString *subreddit = [[[BDSettingsManager sharedManager] subreddit] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *sort = [[BDSettingsManager sharedManager] sort];
+    NSInteger count = [[BDSettingsManager sharedManager] count];
+    NSString *theUrl = [NSString stringWithFormat: @"https://www.reddit.com/r/%@/%@.json?limit=%ld", subreddit, sort, (long)count];
+    HBLogInfo(@"attempting to download spotit json feed");
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL: [NSURL URLWithString: theUrl]];
+    __block NSDictionary *json;
+    [NSURLConnection sendAsynchronousRequest:request
+    queue:[NSOperationQueue mainQueue]
+    completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if(error == nil){
+            HBLogInfo(@"successfully retrieved spotit json feed");
+            json = [NSJSONSerialization JSONObjectWithData: data options: 0 error: nil];
+            for(id key in [[json valueForKey: @"data"] valueForKey: @"children"]){
+                SpotitObject *nSo = [[SpotitObject alloc] init];
+                [nSo setThreadScore: [NSString stringWithFormat: @"%@", (NSString*)[[key valueForKey:@"data"] valueForKey:@"score"]]];
+                [nSo setThreadTitle: [[key valueForKey:@"data"] valueForKey:@"title"]];
+                [nSo setThreadDescription: [[key valueForKey:@"data"] valueForKey:@"selftext"]];
+                [nSo setThreadUrl: [[key valueForKey:@"data"] valueForKey:@"url"]];
+                [nSo setThreadThumbnail: [[key valueForKey:@"data"] valueForKey:@"thumbnail"]];
+                [nSo setThreadFooter: [NSString stringWithFormat:@"%@ // %@", [[key valueForKey:@"data"] valueForKey:@"subreddit"], [[key valueForKey:@"data"] valueForKey:@"author"]]];
+                [objs addObject: nSo];
+            }
+            [vc setItems: [[NSArray alloc] initWithArray: objs]];
+            [tv reloadData];
+        } else {
+            HBLogError(@"could not fetch spotit feed. check your internet connection : %@", theUrl);
+        }
+    }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, /*[[BDSettingsManager sharedManager] refresh]*/ 1 * NSEC_PER_SEC * 60), dispatch_get_main_queue(), ^{
+        fetchFeed();
+    });
+}
 
 %hook SpringBoard
 
 -(void)applicationDidFinishLaunching:(id)application {
     %orig;
-    objs = [[NSMutableArray alloc] init];
-    HBLogInfo(@"downloading json");
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.reddit.com/r/jailbreak/new.json?sort=new"]];
-    __block NSDictionary *json;
-    [NSURLConnection sendAsynchronousRequest:request
-        queue:[NSOperationQueue mainQueue]
-        completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-           json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-           HBLogInfo(@"json dictionary class: %@", [json class]);
-           for(id key in [[json valueForKey:@"data"] valueForKey:@"children"]){
-               SpotitObject *nSo = [[SpotitObject alloc] init];
-               [nSo setThreadTitle: [[key valueForKey:@"data"] valueForKey:@"title"]];
-               [nSo setThreadDescription: [[key valueForKey:@"data"] valueForKey:@"selftext"]];
-               [nSo setThreadUrl: [[key valueForKey:@"data"] valueForKey:@"url"]];
-               [objs addObject: nSo];
-           }
-           HBLogInfo(@"reddit objects: %@", objs);
-           [vc setItems: [[NSArray alloc] initWithArray: objs]];
-           [tv reloadData];
-    }];
-
+    fetchFeed();
 }
 
 %end
@@ -42,8 +54,7 @@ BOOL firstInitialization = YES;
 
 - (void)layoutSubviews {
     %orig;
-    if(removeBlur){
-        HBLogInfo(@"removing blur");
+    if([[BDSettingsManager sharedManager] removeBlur]){
         [self setHidden: YES];
     }
 }
@@ -54,10 +65,7 @@ BOOL firstInitialization = YES;
 
 - (void)layoutSubviews {
     %orig;
-    if(hideSearch){
-        HBLogInfo(@"removing spuinavigationbar");
-        [self setHidden: YES];
-    }
+    [self setHidden: YES];
 }
 
 %end
@@ -65,20 +73,19 @@ BOOL firstInitialization = YES;
 %hook SPUINavigationController
 
 - (id)initWithRootViewController:(id)arg1 {
-
-	return %orig(vc);
-
-}
-
-%end
-
-%ctor{
-
     vc = [[SpotitTableViewController alloc] init];
     [vc.view setBackgroundColor: [UIColor clearColor]];
     tv = [vc tableView];
     [tv setSeparatorStyle: UITableViewCellSeparatorStyleNone];
     [tv setDataSource: vc];
     [tv setDelegate: vc];
+    [tv setShowsVerticalScrollIndicator: NO];
+	return %orig(vc);
+}
 
+%end
+
+%ctor {
+    //setupPaths();
+    [BDSettingsManager sharedManager];
 }

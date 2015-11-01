@@ -1,10 +1,10 @@
-Package: com.thebryc3isright.spot
-Name: Spot
-Depends: mobilesubstrate
+Package: com.brycedev.spotit
+Name: Spotit
+Depends: mobilesubstrate, firmware (>=9.0)
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
+Description: Display reddit posts in your spotlight.
 Maintainer: Bryce Jackson
 Author: Bryce Jackson
 Section: Tweaks
-Version: 0.0.1-84+debug
-Installed-Size: 144
+Version: 0.0.1-6+debug
+Installed-Size: 328

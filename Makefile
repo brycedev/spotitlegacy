@@ -1,11 +1,13 @@
 include $(THEOS)/makefiles/common.mk
 
-TWEAK_NAME = Spot
-Spot_FILES = Tweak.xm SpotitObject.xm SpotitTableViewController.m
-Spot_FRAMEWORKS = Foundation UIKit
-Spot_PRIVATE_FRAMEWORKS = SpotlightUI
+TWEAK_NAME = Spotit
+Spotit_FILES = Tweak.xm SpotitObject.m SpotitTableViewController.m SpotitWebViewController.m BDSettingsManager.m
+Spotit_FRAMEWORKS = Foundation UIKit SafariServices
+Spotit_PRIVATE_FRAMEWORKS = SpotlightUI
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 
 after-install::
-	install.exec "killall -9 SpringBoard"
+	install.exec "killall -9 Preferences; killall -9 SpringBoard"
+SUBPROJECTS += spotit
+include $(THEOS_MAKE_PATH)/aggregate.mk

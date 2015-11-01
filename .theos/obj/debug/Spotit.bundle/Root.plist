@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+	    <dict>
+			<key>cell</key><string>PSGroupCell</string>
+			<key>headerCellClass</key><string>BDSHeaderCell</string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSGroupCell</string>
+			<key>label</key><string></string>
+            <key>footerText</key><string></string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSSwitchCell</string>
+			<key>default</key><true/>
+			<key>defaults</key><string>com.brycedev.spotit</string>
+			<key>key</key><string>enabled</string>
+			<key>label</key><string>Enabled</string>
+			<key>PostNotification</key><string>com.brycedev.spotit/prefschanged</string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSGroupCell</string>
+			<key>label</key><string>Options</string>
+            <key>footerText</key><string></string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSLinkCell</string>
+			<key>detail</key><string>BDSFeedController</string>
+			<key>label</key><string>Feed Options</string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSLinkCell</string>
+			<key>detail</key><string>BDSInterfaceController</string>
+			<key>label</key><string>Interface Options</string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSGroupCell</string>
+			<key>label</key>
+			<string>Support</string><key>footerText</key><string></string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSButtonCell</string>
+			<key>label</key><string>Twitter (@thebryc3isright)</string>
+			<key>action</key><string>openSupportTwitter</string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSButtonCell</string>
+			<key>label</key><string>Email (bryce@brycedev.com)</string>
+			<key>action</key><string>openSupportMail</string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSGroupCell</string>
+			<key>label</key>
+			<string>Donate</string><key>footerText</key><string>The Bitcoin/PayPal address will automatically be copied to your pasteboard.</string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSButtonCell</string>
+			<key>label</key><string>Bitcoin</string>
+			<key>action</key><string>openDonateBitcoin</string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSButtonCell</string>
+			<key>label</key><string>PayPal</string>
+			<key>action</key><string>openDonatePayPal</string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSGroupCell</string>
+			<key>footerAlignment</key><integer>1</integer>
+			<key>footerText</key><string>© 2015 Bryce Jackson (@thebryc3isright)</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string></string>
+</dict>
+</plist>
