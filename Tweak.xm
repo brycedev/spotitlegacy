@@ -33,10 +33,10 @@ void fetchFeed() {
             [vc setItems: [[NSArray alloc] initWithArray: objs]];
             [tv reloadData];
         } else {
-            HBLogError(@"could not fetch spotit feed. check your internet connection : %@", theUrl);
+            HBLogError(@"could not fetch spotit feed. check your internet connection or your subreddit settings: %@", error);
         }
     }];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, /*[[BDSettingsManager sharedManager] refresh]*/ 1 * NSEC_PER_SEC * 60), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, [[BDSettingsManager sharedManager] refresh] * NSEC_PER_SEC * 60), dispatch_get_main_queue(), ^{
         fetchFeed();
     });
 }
@@ -86,6 +86,5 @@ void fetchFeed() {
 %end
 
 %ctor {
-    //setupPaths();
     [BDSettingsManager sharedManager];
 }
