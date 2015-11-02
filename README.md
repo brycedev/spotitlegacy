@@ -6,6 +6,7 @@ reddit posts in your spotlight
 - add placeholder images for posts without thumbnails
 - add ability to aggregate mulitple subs (without need for redditkit)(would love to stick with simple json feeds)
 - add more user customization (colors as opposed to blurs, etc.)
+- implement pull to refresh
 
 ### known issues :
 - this was not designed for use with the vertical spotlight, but the feed still appears there
