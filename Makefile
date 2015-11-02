@@ -2,7 +2,7 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = Spotit
 Spotit_FILES = Tweak.xm SpotitObject.m SpotitTableViewController.m SpotitWebViewController.m BDSettingsManager.m
-Spotit_FRAMEWORKS = Foundation UIKit SafariServices
+Spotit_FRAMEWORKS = CoreFoundation Foundation UIKit SafariServices
 Spotit_PRIVATE_FRAMEWORKS = SpotlightUI
 
 include $(THEOS_MAKE_PATH)/tweak.mk

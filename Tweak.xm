@@ -5,6 +5,8 @@
 SpotitTableViewController *vc;
 UITableView *tv;
 
+BOOL didPullToRefresh;
+
 void fetchFeed() {
     NSMutableArray *objs = [[NSMutableArray alloc] init];
     NSString *subreddit = [[[BDSettingsManager sharedManager] subreddit] stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -25,13 +27,23 @@ void fetchFeed() {
                 [nSo setThreadScore: [NSString stringWithFormat: @"%@", (NSString*)[[key valueForKey:@"data"] valueForKey:@"score"]]];
                 [nSo setThreadTitle: [[key valueForKey:@"data"] valueForKey:@"title"]];
                 [nSo setThreadDescription: [[key valueForKey:@"data"] valueForKey:@"selftext"]];
-                [nSo setThreadUrl: [[key valueForKey:@"data"] valueForKey:@"url"]];
+                [nSo setPreviewUrl: [[key valueForKey:@"data"] valueForKey:@"url"]];
+                [nSo setThreadUrl: [[key valueForKey:@"data"] valueForKey:@"permalink"]];
                 [nSo setThreadThumbnail: [[key valueForKey:@"data"] valueForKey:@"thumbnail"]];
                 [nSo setThreadFooter: [NSString stringWithFormat:@"%@ // %@", [[key valueForKey:@"data"] valueForKey:@"subreddit"], [[key valueForKey:@"data"] valueForKey:@"author"]]];
                 [objs addObject: nSo];
             }
             [vc setItems: [[NSArray alloc] initWithArray: objs]];
             [tv reloadData];
+            if(didPullToRefresh){
+                tv.alpha = 0;
+                [UIView beginAnimations:@"fade" context:NULL];
+                [UIView setAnimationDuration: .5];
+                tv.alpha = 1;
+                tv.layer.shadowOffset = CGSizeMake(0, 0);
+                [UIView commitAnimations];
+                didPullToRefresh = NO;
+            }
         } else {
             HBLogError(@"could not fetch spotit feed. check your internet connection or your subreddit settings: %@", error);
         }
@@ -39,6 +51,11 @@ void fetchFeed() {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, [[BDSettingsManager sharedManager] refresh] * NSEC_PER_SEC * 60), dispatch_get_main_queue(), ^{
         fetchFeed();
     });
+}
+
+void refreshFeed(CFNotificationCenterRef center, void * observer, CFStringRef name, const void * object, CFDictionaryRef userInfo){
+    didPullToRefresh = YES;
+    fetchFeed();
 }
 //////////////////////////////////////////
 %group iOS9
@@ -90,6 +107,12 @@ void fetchFeed() {
 %end
 //////////////////////////////////////////
 %ctor {
+    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
+                                NULL,
+                                refreshFeed,
+                                CFSTR("com.brycedev.spotit.pulltorefresh"),
+                                NULL,
+                                CFNotificationSuspensionBehaviorCoalesce);
     [BDSettingsManager sharedManager];
     if([[BDSettingsManager sharedManager] enabled]){
         %init(iOS9);

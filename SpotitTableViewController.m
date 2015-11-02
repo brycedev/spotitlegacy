@@ -6,6 +6,7 @@
 
 UIImageOrientation scrollOrientation;
 CGPoint lastPos;
+BOOL didPullToRefresh;
 
 @implementation SpotitTableViewController
 
@@ -20,7 +21,7 @@ CGPoint lastPos;
     CGPoint position = [self.tableView convertPoint: location fromView: self.view];
     NSIndexPath *path = [self.tableView indexPathForRowAtPoint: position];
     if (path) {
-        SpotitWebViewController *sfvc = [[SpotitWebViewController alloc] initWithURL: [NSURL URLWithString: [[_items objectAtIndex: path.row] valueForKey: @"threadUrl"]]];
+        SpotitWebViewController *sfvc = [[SpotitWebViewController alloc] initWithURL: [NSURL URLWithString: [[_items objectAtIndex: path.row] valueForKey: @"previewUrl"]]];
     	return sfvc;
     }
     return nil;
@@ -114,7 +115,7 @@ CGPoint lastPos;
             }
         } else if([[BDSettingsManager sharedManager] animationStyle] == 2){
             cell.alpha = 0;
-            [UIView beginAnimations:@"fade" context:NULL];
+            [UIView beginAnimations:@"fade" context: NULL];
             [UIView setAnimationDuration: .5];
             cell.alpha = 1;
             cell.layer.shadowOffset = CGSizeMake(0, 0);
@@ -123,10 +124,40 @@ CGPoint lastPos;
     }
 }
 
-- (void) scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    BOOL pulledDown;
+
+    if (scrollView.contentOffset.y < -75){
+        HBLogInfo(@"scroll view pulled down");
+        pulledDown = YES;
+    }
+    if (scrollView.contentOffset.y == 0 && pulledDown) {
+        HBLogInfo(@"scroll view unpulled");
+        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(),
+                                     CFSTR("com.brycedev.spotit.pulltorefresh"),
+                                     NULL,
+                                     NULL,
+                                     TRUE);
+        self.tableView.alpha = 1;
+        [UIView beginAnimations:@"fade" context:NULL];
+        [UIView setAnimationDuration: .5];
+        self.tableView.alpha = 0;
+        self.tableView.layer.shadowOffset = CGSizeMake(0, 0);
+        [UIView commitAnimations];
+        pulledDown = NO;
+    }
     if([[BDSettingsManager sharedManager] animationStyle] == 1){
         scrollOrientation = scrollView.contentOffset.y > lastPos.y?UIImageOrientationDown:UIImageOrientationUp;
         lastPos = scrollView.contentOffset;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *url = [[_items objectAtIndex: indexPath.row] valueForKey: @"threadUrl"];
+    if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"alienblue:"]]){
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"alienblue://thread/https://reddit.com" stringByAppendingString: url]]];
+    }else{
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
     }
 }
 
