@@ -40,7 +40,9 @@ void fetchFeed() {
         fetchFeed();
     });
 }
-
+//////////////////////////////////////////
+%group iOS9
+//////////////////////////////////////////
 %hook SpringBoard
 
 -(void)applicationDidFinishLaunching:(id)application {
@@ -84,7 +86,12 @@ void fetchFeed() {
 }
 
 %end
-
+//////////////////////////////////////////
+%end
+//////////////////////////////////////////
 %ctor {
     [BDSettingsManager sharedManager];
+    if([[BDSettingsManager sharedManager] enabled]){
+        %init(iOS9);
+    }
 }
