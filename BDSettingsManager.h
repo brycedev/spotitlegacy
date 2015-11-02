@@ -3,6 +3,7 @@
 @property (nonatomic, copy) NSDictionary *settings;
 
 @property (nonatomic, readonly, getter=enabled) BOOL enabled;
+@property (nonatomic, readonly, getter=removeApple) BOOL removeApple;
 @property (nonatomic, readonly, getter=subreddit) NSString * subreddit;
 @property (nonatomic, readonly, getter=sort) NSString *sort;
 @property (nonatomic, readonly, getter=count) NSInteger count;

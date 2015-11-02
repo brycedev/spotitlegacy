@@ -23,6 +23,24 @@
 		</dict>
 		<dict>
 			<key>cell</key><string>PSGroupCell</string>
+			<key>label</key><string></string>
+            <key>footerText</key><string>This option removes all Apple spotlight features and replaces the spotlight with a Reddit feed.</string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSSwitchCell</string>
+			<key>default</key><true/>
+			<key>defaults</key><string>com.brycedev.spotit</string>
+			<key>key</key><string>removeApple</string>
+			<key>label</key><string>No Apple - Mode</string>
+			<key>PostNotification</key><string>com.brycedev.spotit/prefschanged</string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSLinkCell</string>
+			<key>detail</key><string>BDSInterfaceController</string>
+			<key>label</key><string>Interface Options</string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSGroupCell</string>
 			<key>label</key><string>Options</string>
             <key>footerText</key><string></string>
 		</dict>
@@ -32,9 +50,14 @@
 			<key>label</key><string>Feed Options</string>
 		</dict>
 		<dict>
-			<key>cell</key><string>PSLinkCell</string>
-			<key>detail</key><string>BDSInterfaceController</string>
-			<key>label</key><string>Interface Options</string>
+			<key>cell</key><string>PSGroupCell</string>
+			<key>label</key><string></string>
+			<key>footerText</key><string></string>
+		</dict>
+		<dict>
+			<key>cell</key><string>PSButtonCell</string>
+			<key>label</key><string>Respring</string>
+			<key>action</key><string>respring</string>
 		</dict>
 		<dict>
 			<key>cell</key><string>PSGroupCell</string>

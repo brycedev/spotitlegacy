@@ -1,6 +1,10 @@
 #import "Global.h"
 #include "BDSRootListController.h"
 
+@interface SpringBoard : NSObject
+- (void)_relaunchSpringBoardNow;
+@end
+
 UIColor *originalTint;
 UIWindow *settingsView;
 
@@ -97,6 +101,10 @@ UIWindow *settingsView;
 
     [self dismissViewControllerAnimated: YES completion: nil];
 
+}
+
+- (void)respring {
+	[(SpringBoard *)[UIApplication sharedApplication] _relaunchSpringBoardNow];
 }
 
 @end

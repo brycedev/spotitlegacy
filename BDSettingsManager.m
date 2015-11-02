@@ -36,6 +36,10 @@ void prefschanged(CFNotificationCenterRef center, void * observer, CFStringRef n
     return self.settings[@"enabled"] ? [self.settings[@"enabled"] boolValue] : YES;
 }
 
+- (BOOL)removeApple {
+    return self.settings[@"removeApple"] ? [self.settings[@"removeApple"] boolValue] : YES;
+}
+
 - (NSString *)subreddit {
     return self.settings[@"subreddit"] ? self.settings[@"subreddit"] : @"jailbreak";
 }
