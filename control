@@ -1,9 +1,9 @@
-Package: com.brycedev.spotit
-Name: Spotit
+Package: com.brycedev.spotitlegacy
+Name: SpotitLegacy
 Depends: mobilesubstrate, firmware (>=9.0)
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: Display reddit posts in your spotlight.
+Description: Display a Reddit view where the Spotlight usually resides.
 Maintainer: Bryce Jackson
 Author: Bryce Jackson
 Section: Tweaks

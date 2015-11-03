@@ -12,12 +12,12 @@
 		<dict>
 			<key>cell</key><string>PSEditTextCell</string>
 			<key>label</key><string>Subreddit</string>
-			<key>defaults</key><string>com.brycedev.spotit</string>
+			<key>defaults</key><string>com.brycedev.spotitlegacy</string>
 			<key>placeholder</key><string>jailbreak</string>
 			<key>isDecimalPad</key><false/>
 			<key>key</key><string>subreddit</string>
             <key>footerText</key><string></string>
-			<key>PostNotification</key><string>com.brycedev.spotit/prefschanged</string>
+			<key>PostNotification</key><string>com.brycedev.spotitlegacy/prefschanged</string>
 		</dict>
 		<dict>
 			<key>cell</key><string>PSGroupCell</string>
@@ -26,10 +26,10 @@
 		</dict>
 		<dict>
             <key>cell</key><string>PSSegmentCell</string>
-            <key>defaults</key><string>com.brycedev.spotit</string>
+            <key>defaults</key><string>com.brycedev.spotitlegacy</string>
 			<key>default</key><integer>0</integer>
             <key>key</key><string>sort</string>
-            <key>PostNotification</key><string>com.brycedev.spotit/prefschanged</string>
+            <key>PostNotification</key><string>com.brycedev.spotitlegacy/prefschanged</string>
             <key>validTitles</key><array>
 				<string>Hot</string>
                 <string>Top</string>
@@ -50,11 +50,11 @@
 		    <key>cell</key><string>PSSliderCell</string>
             <key>showValue</key><true/>
             <key>default</key><real>25.0</real>
-            <key>defaults</key><string>com.brycedev.spotit</string>
+            <key>defaults</key><string>com.brycedev.spotitlegacy</string>
 			<key>key</key><string>count</string>
 			<key>max</key><real>75.0</real>
 			<key>min</key><real>0.0</real>
-			<key>PostNotification</key><string>com.brycedev.spotit/prefschanged</string>
+			<key>PostNotification</key><string>com.brycedev.spotitlegacy/prefschanged</string>
 		</dict>
 		<dict>
 			<key>cell</key><string>PSGroupCell</string>
@@ -65,11 +65,11 @@
 		    <key>cell</key><string>PSSliderCell</string>
             <key>showValue</key><true/>
             <key>default</key><real>15.0</real>
-            <key>defaults</key><string>com.brycedev.spotit</string>
+            <key>defaults</key><string>com.brycedev.spotitlegacy</string>
 			<key>key</key><string>refresh</string>
 			<key>max</key><real>60.0</real>
 			<key>min</key><real>3.0</real>
-			<key>PostNotification</key><string>com.brycedev.spotit/prefschanged</string>
+			<key>PostNotification</key><string>com.brycedev.spotitlegacy/prefschanged</string>
 		</dict>
 	</array>
 	<key>title</key>

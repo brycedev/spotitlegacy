@@ -12,10 +12,10 @@
 		<dict>
 			<key>cell</key><string>PSSwitchCell</string>
 			<key>default</key><false/>
-			<key>defaults</key><string>com.brycedev.spotit</string>
+			<key>defaults</key><string>com.brycedev.spotitlegacy</string>
 			<key>key</key><string>removeBlur</string>
 			<key>label</key><string>Remove Spotlight Blur</string>
-			<key>PostNotification</key><string>com.brycedev.spotit/prefschanged</string>
+			<key>PostNotification</key><string>com.brycedev.spotitlegacy/prefschanged</string>
 		</dict>
 		<dict>
 			<key>cell</key><string>PSGroupCell</string>
@@ -24,10 +24,10 @@
 		</dict>
 		<dict>
             <key>cell</key><string>PSSegmentCell</string>
-            <key>defaults</key><string>com.brycedev.spotit</string>
+            <key>defaults</key><string>com.brycedev.spotitlegacy</string>
 			<key>default</key><integer>1</integer>
             <key>key</key><string>animationStyle</string>
-            <key>PostNotification</key><string>com.brycedev.spotit/prefschanged</string>
+            <key>PostNotification</key><string>com.brycedev.spotitlegacy/prefschanged</string>
             <key>validTitles</key><array>
 				<string>None</string>
                 <string>Flip</string>
