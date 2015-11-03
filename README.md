@@ -1,6 +1,6 @@
-# spotit
+# spotitlegacy
 
-reddit posts in your spotlight
+a custom reddit feed view in place of the apple spotlight
 
 ### todo :
 - add placeholder images for posts without thumbnails
