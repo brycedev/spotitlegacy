@@ -237,7 +237,6 @@ objc_setAssociatedObject(self, @selector(links), links, OBJC_ASSOCIATION_RETAIN_
 }
 
 - (NSArray *)resultsForRow:(NSInteger)row inSection:(NSInteger)section {
-	if(section == 1){HBLogInfo(@"results : %@", %orig);}
     if (section != 2) return %orig(row, section);
     return @[[self links][row]];
 }
